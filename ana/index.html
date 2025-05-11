@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ana bday</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cabin+Sketch:wght@400;700&family=Fredericka+the+Great&display=swap');
+        .fredericka-the-great-regular {
+        font-family: "Fredericka the Great", serif;
+        font-weight: 400;
+        font-style: normal;
+        }
+
+        h1{
+            font-family: 'Fredericka the Great';
+            align-items: center;
+            margin-bottom: 30vw;
+            text-align: center;
+        }
+        .container{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            display: block;
+            margin-top: 40vh;
+        }
+        img{
+            width: 30%;
+            align-items: center;
+            justify-content: center;
+        }
+        body{
+            height: 500vh;
+        }
+        .gif{
+            transform: translateY(100vh);
+        }
+        .butt{
+            width: 200px;
+            transform: translate(40vw, 100vh);
+        }
+        .confetti{
+            position: fixed;
+            top: 0;
+            opacity: 0;
+            width: 100vw;
+            height: 100vh;
+            transition: opacity 0.5s ease-in-out;
+            pointer-events: none;
+
+        }
+
+
+        </style>
+        
+</head>
+<body>
+    
+
+    <div class="container">
+        <h1 class="text">happy bday anastasia </h1>
+        <br>
+        <img src="ana.png" class="anaimg">
+        <img src="https://media0.giphy.com/media/xOvhMKk3EyS1LKQtkK/200w.gif?cid=6c09b952wd8vki1w6e9ma0x5bsel8nwh50yhpzvfltubm2sp&ep=v1_gifs_search&rid=200w.gif&ct=g" class="gif">
+        <h1 class="text1">have a great day you are 22 now</h1>
+        <button class="butt">click me</button>
+    </div>
+    <img src="https://i.pinimg.com/originals/cf/50/6d/cf506d6998d68de01e9171f30fc4e287.gif" class="confetti">
+</body>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
+
+
+<script> 
+document.addEventListener('DOMContentLoaded', function(){
+            console.log("loaded");
+        
+        const text = document.querySelector('.text');
+        const anaimg = document.querySelector('.anaimg');
+        const container = document.querySelector('.container');
+        const body = document.querySelector('body');
+        const gif = document.querySelector('.gif');
+        const butt = document.querySelector('.butt');
+        const confetti= document.querySelector('.confetti');
+       
+        let xval = 0;
+        let rotation = 0;
+        gsap.registerPlugin(ScrollTrigger);
+
+        let tl = gsap.timeline();
+        tl.to(text, { 
+            opacity: 1, 
+            scrollTrigger: {
+                trigger: container,
+                start: "top 50%",
+                scrub: true,
+              },
+              
+        }).to(text, {
+            opacity: 0,
+            scrollTrigger: {
+                trigger: text,
+                start: "top 40%",
+                scrub: true,
+              }
+        }).to(anaimg, {
+            rotation: 1500,
+            translateX: 1500,
+            scrollTrigger: {
+                trigger: anaimg,
+                start: "top 80%",
+                scrub: true,
+              }
+        }).to(body,{
+            backgroundColor: "pink",
+            scrollTrigger:{
+                trigger: anaimg,
+                start: "top 0%",
+            }
+        });
+    butt.onclick = function() {
+        console.log("clicked");
+        confetti.style.opacity = "1";
+    };
+    
+    }); 
+
+    
+</script>
+</html>

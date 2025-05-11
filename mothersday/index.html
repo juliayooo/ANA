@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ana bday</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cabin+Sketch:wght@400;700&family=Fredericka+the+Great&display=swap');
+        .fredericka-the-great-regular {
+        font-family: "Fredericka the Great", serif;
+        font-weight: 400;
+        font-style: normal;
+        }
+
+        h1{
+            font-family: 'Fredericka the Great';
+            align-items: center;
+            margin-bottom: 30vw;
+            text-align: center;
+        }
+        .container{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            display: block;
+            margin-top: 40vh;
+        }
+        img{
+            width: 30%;
+            align-items: center;
+            justify-content: center;
+        }
+        body{
+            height: 500vh;
+        }
+    
+        .butt{
+            width: 400px;
+            font-size: 30px;
+            margin: 100px;
+            margin-left: 38vw;            
+        }
+        .confetti{
+            position: fixed;
+            top: 0;
+            opacity: 0;
+            width: 100vw;
+            height: 100vh;
+            transition: opacity 0.5s ease-in-out;
+            pointer-events: none;
+
+        }
+        .imgcontainer{
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .img0{
+            width: 30%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform: translate(35vw, 0vh);
+        }
+        .background{
+            width: 100%;
+        }
+
+
+        </style>
+        
+</head>
+<body>
+    
+
+    <div class="container">
+
+        <h1 class="text">Happy Mother's Day!</h1>
+        <img src="background.png" class="background">
+        <br>
+        <img src="1.png" class="anaimg">
+
+        <h1 class="text1">Te quiero muchísimo y te extraño tanto!</h1>
+
+
+        <div class="imgcontainer"><img src = "4.jpg">
+        </div>
+        <h1 class="text2">Espero que disfrutes tu día hoy!</h1>
+
+        <h1 class="text3">Con amor, Enanita</h1>
+        <img src = "0.png" class="img0">
+        <button class="butt">click me</button>
+    </div>
+    <img src="https://i.pinimg.com/originals/cf/50/6d/cf506d6998d68de01e9171f30fc4e287.gif" class="confetti">
+</body>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
+
+
+<script> 
+document.addEventListener('DOMContentLoaded', function(){
+            console.log("loaded");
+        
+        const text = document.querySelector('.text');
+        const anaimg = document.querySelector('.anaimg');
+        const container = document.querySelector('.container');
+        const body = document.querySelector('body');
+        const butt = document.querySelector('.butt');
+        const confetti= document.querySelector('.confetti');
+        const imgcontainer = document.querySelector('.imgcontainer');
+
+        let xval = 0;
+        let rotation = 0;
+        gsap.registerPlugin(ScrollTrigger);
+
+        let tl = gsap.timeline();
+        tl.to(text, { 
+            opacity: 1, 
+            scrollTrigger: {
+                trigger: container,
+                start: "top 50%",
+                scrub: true,
+              },
+              
+        }).to(text, {
+            opacity: 0,
+            scrollTrigger: {
+                trigger: text,
+                start: "top 40%",
+                scrub: true,
+              }
+        }).to(anaimg, {
+            rotation: 1000,
+            translateX: 1500,
+            scrollTrigger: {
+                trigger: anaimg,
+                start: "top 80%",
+                scrub: true,
+              }
+        }).to(body,{
+            backgroundColor: "pink",
+            scrollTrigger:{
+                trigger: anaimg,
+                start: "top 0%",
+            }
+        });
+
+let images = ["2.jpg", "3.jpg", "4.jpg"];
+
+let imageEl = imgcontainer.querySelector("img");
+
+gsap.to({}, {
+    scrollTrigger: {
+        trigger: imgcontainer,
+        start: "center center",
+        end: `+=${images.length * 600}`, // controls how long it's pinned
+        scrub: true,
+        pin: true,
+        onUpdate: self => {
+            let index = Math.floor(self.progress * images.length);
+            imageEl.src = images[Math.min(index, images.length - 1)];
+        }
+    }
+});
+
+
+
+
+
+
+    butt.onclick = function() {
+        console.log("clicked");
+        confetti.style.opacity = "1";
+    };
+    
+    }); 
+
+    
+</script>
+</html>
