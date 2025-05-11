@@ -34,12 +34,12 @@
         body{
             height: 500vh;
         }
-        .gif{
-            transform: translateY(100vh);
-        }
+    
         .butt{
-            width: 200px;
-            transform: translate(40vw, 100vh);
+            width: 400px;
+            font-size: 30px;
+            margin: 100px;
+            margin-left: 38vw;            
         }
         .confetti{
             position: fixed;
@@ -51,6 +51,22 @@
             pointer-events: none;
 
         }
+        .imgcontainer{
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .img0{
+            width: 30%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform: translate(35vw, 0vh);
+        }
+        .background{
+            width: 100%;
+        }
 
 
         </style>
@@ -60,11 +76,21 @@
     
 
     <div class="container">
-        <h1 class="text">happy bday anastasia </h1>
+
+        <h1 class="text">Happy Mother's Day!</h1>
+        <img src="background.png" class="background">
         <br>
-        <img src="ana.png" class="anaimg">
-        <img src="https://media0.giphy.com/media/xOvhMKk3EyS1LKQtkK/200w.gif?cid=6c09b952wd8vki1w6e9ma0x5bsel8nwh50yhpzvfltubm2sp&ep=v1_gifs_search&rid=200w.gif&ct=g" class="gif">
-        <h1 class="text1">have a great day you are 22 now</h1>
+        <img src="1.png" class="anaimg">
+
+        <h1 class="text1">Te quiero muchísimo y te extraño tanto!</h1>
+
+
+        <div class="imgcontainer"><img src = "4.jpg">
+        </div>
+        <h1 class="text2">Espero que disfrutes tu día hoy!</h1>
+
+        <h1 class="text3">Con amor, Enanita</h1>
+        <img src = "0.png" class="img0">
         <button class="butt">click me</button>
     </div>
     <img src="https://i.pinimg.com/originals/cf/50/6d/cf506d6998d68de01e9171f30fc4e287.gif" class="confetti">
@@ -81,10 +107,10 @@ document.addEventListener('DOMContentLoaded', function(){
         const anaimg = document.querySelector('.anaimg');
         const container = document.querySelector('.container');
         const body = document.querySelector('body');
-        const gif = document.querySelector('.gif');
         const butt = document.querySelector('.butt');
         const confetti= document.querySelector('.confetti');
-       
+        const imgcontainer = document.querySelector('.imgcontainer');
+
         let xval = 0;
         let rotation = 0;
         gsap.registerPlugin(ScrollTrigger);
@@ -106,7 +132,7 @@ document.addEventListener('DOMContentLoaded', function(){
                 scrub: true,
               }
         }).to(anaimg, {
-            rotation: 1500,
+            rotation: 1000,
             translateX: 1500,
             scrollTrigger: {
                 trigger: anaimg,
@@ -120,6 +146,30 @@ document.addEventListener('DOMContentLoaded', function(){
                 start: "top 0%",
             }
         });
+
+let images = ["2.jpg", "3.jpg", "4.jpg"];
+
+let imageEl = imgcontainer.querySelector("img");
+
+gsap.to({}, {
+    scrollTrigger: {
+        trigger: imgcontainer,
+        start: "center center",
+        end: `+=${images.length * 600}`, // controls how long it's pinned
+        scrub: true,
+        pin: true,
+        onUpdate: self => {
+            let index = Math.floor(self.progress * images.length);
+            imageEl.src = images[Math.min(index, images.length - 1)];
+        }
+    }
+});
+
+
+
+
+
+
     butt.onclick = function() {
         console.log("clicked");
         confetti.style.opacity = "1";
