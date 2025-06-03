@@ -17,9 +17,11 @@
     document.getElementById('connect').onclick = async () => {
       try {
         const device = await navigator.bluetooth.requestDevice({
-          filters: [{ name: "ProximityVolume" }],
-          optionalServices: [serviceUUID]
-        });
+  acceptAllDevices: true,
+  optionalServices: [serviceUUID]
+});
+
+        ;
 
         const server = await device.gatt.connect();
         const service = await server.getPrimaryService(serviceUUID);
@@ -40,8 +42,8 @@
 
     function adjustVolume(direction) {
       let vol = audio.volume;
-      if (direction === 1) vol = Math.min(1, vol + 0.1);
-      if (direction === -1) vol = Math.max(0, vol - 0.1);
+      if (direction === 1) vol = Math.min(1, vol + 0.3);
+      if (direction === -1) vol = Math.max(0, vol - 0.3);
       audio.volume = vol;
       console.log("Volume:", audio.volume);
     }
