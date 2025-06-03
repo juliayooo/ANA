@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>BLE Volume Controller</title>
+</head>
+<body>
+  <button id="connect">Connect to BLE</button>
+  <p id="status">Disconnected</p>
+  <audio id="player" src="bubbles.mp3" controls autoplay loop></audio>
+
+  <script>
+    const serviceUUID = '12345678-1234-5678-1234-56789abcdef0';
+    const charUUID = 'abcdef01-1234-5678-1234-56789abcdef0';
+
+    let audio = document.getElementById('player');
+
+    document.getElementById('connect').onclick = async () => {
+      try {
+        const device = await navigator.bluetooth.requestDevice({
+          filters: [{ name: "ProximityVolume" }],
+          optionalServices: [serviceUUID]
+        });
+
+        const server = await device.gatt.connect();
+        const service = await server.getPrimaryService(serviceUUID);
+        const char = await service.getCharacteristic(charUUID);
+
+        char.startNotifications();
+        char.addEventListener('characteristicvaluechanged', event => {
+          const direction = event.target.value.getInt8(0);
+          adjustVolume(direction);
+        });
+
+        document.getElementById('status').innerText = "Connected!";
+      } catch (error) {
+        console.error(error);
+        document.getElementById('status').innerText = "Connection Failed";
+      }
+    };
+
+    function adjustVolume(direction) {
+      let vol = audio.volume;
+      if (direction === 1) vol = Math.min(1, vol + 0.1);
+      if (direction === -1) vol = Math.max(0, vol - 0.1);
+      audio.volume = vol;
+      console.log("Volume:", audio.volume);
+    }
+  </script>
+</body>
+</html>
